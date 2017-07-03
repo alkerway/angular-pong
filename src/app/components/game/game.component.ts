@@ -15,14 +15,17 @@ export class GameComponent {
   private leftPaddleTop: number;
   private rightPaddleTop: number;
 
+
   private ballTop: number;
   private ballLeft: number;
 
   private gameInterval;
   private θ: number;
+  private pi: number;
   private velocity: number;
 
   constructor() {
+    this.pi = Math.PI;
   }
 
   ngOnInit() {
@@ -30,7 +33,7 @@ export class GameComponent {
     this.gameStartSubject.subscribe((level) => {
       this.resetGame();
       this.velocity = 7;
-      this.θ = Math.random() * (Math.random() > 0.5 ? -1 : 1);
+      this.θ = (Math.random() * (Math.random() > 0.5 ? -this.pi : this.pi)) / 4;
       this.start(level);
     })
   }
@@ -50,6 +53,7 @@ export class GameComponent {
     clearInterval(this.gameInterval);
     this.gameInterval = setInterval(() => {
       this.updateBall();
+      this.updateAi();
       this.checkForCollision();
     }, 20);
   }
@@ -60,15 +64,35 @@ export class GameComponent {
   private checkForCollision() {
     if (this.ballTop > this.gameHeight - 20 || this.ballTop < 0) {
       this.θ = -this.θ;
-    } else if (this.ballLeft > this.gameWidth - 50 && this.rightPaddleTop + 60 > this.ballTop && this.rightPaddleTop < this.ballTop) {
-      this.velocity = -this.velocity;
+    } else if (this.ballLeft > this.gameWidth - 50 &&
+               this.rightPaddleTop + 60 > this.ballTop &&
+               this.rightPaddleTop <= this.ballTop + 20) {
+      this.velocity = Math.sign(this.velocity) > 0 ? -this.velocity : this.velocity;
       this.θ = -this.θ;
-    } else if (this.ballLeft < 30 && this.leftPaddleTop + 60 > this.ballTop + 20 && this.leftPaddleTop < this.ballTop) {
+      if (this.rightPaddleTop + 45 <= this.ballTop || this.rightPaddleTop + 15 >= this.ballTop + 20) {
+        this.θ += (this.pi / 3 - this.θ) / 2; // limit to 60 degrees
+        console.log('changed θ PLUS ', this.θ);
+      } else {
+         this.θ -= 0;
+         console.log('changed θ MINUS ', this.θ);
+      }
+    } else if (this.ballLeft < 30 &&
+               this.leftPaddleTop + 60 >= this.ballTop &&
+               this.leftPaddleTop <= this.ballTop + 20) {
       this.velocity = -this.velocity;
       this.θ = -this.θ;
     } else if (this.ballLeft > this.gameWidth - 20 || this.ballLeft < 0) {
       this.velocity = 0;
       this.resetGame();
+    }
+  }
+  private updateAi() {
+    if (this.ballLeft < this.gameWidth * 0.6 && this.velocity < 0) {
+      if (this.leftPaddleTop + 60 < this.ballTop + 20) {
+        this.leftPaddleTop += 5;
+      } else if (this.leftPaddleTop > this.ballTop) {
+        this.leftPaddleTop -= 5;
+      }
     }
   }
 
