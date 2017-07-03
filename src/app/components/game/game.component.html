@@ -5,7 +5,7 @@
   <div class="timerContainer" *ngIf="timer">
     <app-timer *ngIf="timer" [timer]="timer"></app-timer>
   </div>
-<div class="buttonContainer" [class.gameActive]="gameInterval">
+<div class="buttonContainer">
     <button class="startButton" (click)="onNewGameClicked()">New game</button>
   </div>
 </div>

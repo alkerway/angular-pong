@@ -20,6 +20,7 @@ export class GameComponent {
   private ballLeft: number;
 
   private gameInterval;
+  private decrementTimeout;
   private θ: number;
   private pi: number;
   private velocity: number;
@@ -40,6 +41,9 @@ export class GameComponent {
     this.rightPaddleTop = this.gameHeight / 2 - 60;
     this.ballTop = this.gameHeight / 2 - 40;
     this.ballLeft = 30;
+    clearTimeout(this.decrementTimeout);
+    clearTimeout(this.gameInterval);
+    this.timer = 0;
   }
 
   private onMouseMove(event: MouseEvent) {
@@ -48,6 +52,7 @@ export class GameComponent {
 
   private start(level) {
     clearInterval(this.gameInterval);
+    clearTimeout(this.decrementTimeout)
     this.gameInterval = setInterval(() => {
       this.updateBall();
       this.updateAi();
@@ -109,8 +114,8 @@ export class GameComponent {
   }
   private decrementTimer(timer: number) {
     this.timer = timer;
-    if (timer > 0) {
-      setTimeout(() => {
+    if (this.timer > 0) {
+      this.decrementTimeout = setTimeout(() => {
         this.decrementTimer(timer - 1);
       }, 1000);
     } else {
