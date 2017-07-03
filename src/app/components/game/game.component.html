@@ -6,6 +6,7 @@
     <app-timer *ngIf="timer" [timer]="timer"></app-timer>
   </div>
 <div class="buttonContainer">
-    <button class="startButton" (click)="onNewGameClicked()">New game</button>
+    <button class="startButton" (click)="onNewGameClicked(levelInput.value)">New game</button>
+    <input #levelInput type="number" class="levelInput" max="4" min="0" value="2">
   </div>
 </div>

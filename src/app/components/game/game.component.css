@@ -15,7 +15,7 @@
 }
 button {
   outline: none;
-  background-color: #002c30;
+  background-color: transparent;
   color: #f5f5dc;
   border: 2px solid #f5f5dc;
   border-radius: 10%;
@@ -28,4 +28,11 @@ button:hover {
   background-color: #f5f5dc;
   color: #002c30;
   transition: all 0.1s linear;
+}
+.levelInput {
+  background-color: transparent;
+  color: #f5f5dc;
+  width: 30px;
+  outline: none;
+  border: none;
 }

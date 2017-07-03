@@ -63,7 +63,7 @@ export class GameComponent implements OnInit {
 
   private start(level) {
     clearTimeout(this.decrementTimeout);
-    this.velocity = 17;
+    this.velocity = 10 + level * level;
     this.θ = (Math.random() * (Math.random() > 0.5 ? -this.pi : this.pi)) / 12 + this.pi / 6;
     this.gameInterval = setInterval(() => {
       this.updateBall();
@@ -119,7 +119,9 @@ export class GameComponent implements OnInit {
       }
       setTimeout(() => {
         this.resetGame();
-        this.decrementTimer(3);
+        if (this.rightScore < 11 && this.leftScore < 11) {
+          this.decrementTimer(3);
+        }
       }, 500);
     } else {
       this.alreadyInZone = false;
@@ -128,14 +130,15 @@ export class GameComponent implements OnInit {
   private updateAi() {
     if (this.ballLeft < this.gameWidth * 0.6 && this.velocity < 0) {
       if (this.leftPaddleTop + 60 < this.ballTop + 20) {
-        this.leftPaddleTop += 10;
+        this.leftPaddleTop += 4 + this.level * 3;
       } else if (this.leftPaddleTop > this.ballTop) {
-        this.leftPaddleTop -= 10;
+        this.leftPaddleTop -= 4 + this.level * 3;
       }
     }
   }
-  private onNewGameClicked(level = 1) {
+  private onNewGameClicked(level: number) {
       this.level = level;
+      this.resetScores();
       this.resetGame();
       this.decrementTimer(3);
   }
