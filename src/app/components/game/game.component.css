@@ -36,3 +36,6 @@ button:hover {
   outline: none;
   border: none;
 }
+.levelText{
+  color: #f5f5dc;
+}

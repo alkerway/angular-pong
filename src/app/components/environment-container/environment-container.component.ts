@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
   styleUrls: ['./environment-container.component.css']
 })
 export class EnvironmentContainerComponent {
-  private width = 1000;
-  private height = 400;
+  public width = 870;
+  public height = 400;
   constructor() { }
 }

@@ -7,19 +7,19 @@ import { Subject } from 'rxjs/Subject';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
-  @Input() gameWidth: number;
-  @Input() gameHeight: number;
+  @Input() public gameWidth: number;
+  @Input() public gameHeight: number;
 
-  @Input() gameStartSubject: Subject<any>;
+  @Input() public gameStartSubject: Subject<any>;
 
-  private leftPaddleTop: number;
-  private rightPaddleTop: number;
-  private leftScore: number;
-  private rightScore: number;
+  public leftPaddleTop: number;
+  public rightPaddleTop: number;
+  public leftScore: number;
+  public rightScore: number;
 
 
-  private ballTop: number;
-  private ballLeft: number;
+  public ballTop: number;
+  public ballLeft: number;
 
   private gameInterval;
   private decrementTimeout;
@@ -28,7 +28,7 @@ export class GameComponent implements OnInit {
   private pi: number;
   private velocity: number;
   private alreadyInZone = false;
-  private timer: number;
+  public timer: number;
   private level: number;
 
   constructor() {
@@ -55,7 +55,7 @@ export class GameComponent implements OnInit {
     this.leftScore = 0;
   }
 
-  private onMouseMove(event: MouseEvent) {
+  public onMouseMove(event: MouseEvent) {
     if (!this.disableMouse) {
       this.rightPaddleTop = Math.min(Math.max(event.clientY, 100), 430) - 100;
     }
@@ -128,7 +128,7 @@ export class GameComponent implements OnInit {
     }
   }
   private updateAi() {
-    if (this.ballLeft < this.gameWidth * 0.6 && this.velocity < 0) {
+    if (this.ballLeft < this.gameWidth * (this.level > 2 ? 0.6 : 0.5) && this.velocity < 0) {
       if (this.leftPaddleTop + 60 < this.ballTop + 20) {
         this.leftPaddleTop += 4 + this.level * 3;
       } else if (this.leftPaddleTop > this.ballTop) {
@@ -136,7 +136,7 @@ export class GameComponent implements OnInit {
       }
     }
   }
-  private onNewGameClicked(level: number) {
+  public onNewGameClicked(level: number) {
       this.level = level;
       this.resetScores();
       this.resetGame();
