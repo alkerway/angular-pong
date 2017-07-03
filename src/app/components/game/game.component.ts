@@ -93,9 +93,21 @@ export class GameComponent {
       this.velocity = -this.velocity;
       this.θ = -this.θ;
       this.alreadyInZone = true;
+      if (this.leftPaddleTop + 45 <= this.ballTop || this.leftPaddleTop + 15 >= this.ballTop + 20) {
+        if (this.θ > 0) {
+          this.θ += (this.pi / 3 - this.θ) / 2;  // limit to 60 degrees
+        } else {
+          this.θ -= (this.pi / 3 - this.θ) / 2;
+        }
+      } else {
+         this.θ =  6 * this.θ / 7;
+      }
     } else if (this.ballLeft > this.gameWidth - 20 || this.ballLeft < 0 && this.ballLeft < this.gameWidth + 40 && this.ballLeft > -40) {
       this.velocity = 0;
-      this.resetGame();
+      clearTimeout(this.gameInterval);
+      setTimeout(() => {
+        this.resetGame();
+      }, 1000);
     } else {
       this.alreadyInZone = false;
     }
@@ -112,7 +124,7 @@ export class GameComponent {
   private onNewGameClicked(level = 1) {
       this.level = level;
       this.resetGame();
-      this.velocity = 7;
+      this.velocity = 11;
       this.θ = (Math.random() * (Math.random() > 0.5 ? -this.pi : this.pi)) / 4;
       this.decrementTimer(3);
   }
