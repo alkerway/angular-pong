@@ -14,6 +14,8 @@ export class GameComponent implements OnInit {
 
   private leftPaddleTop: number;
   private rightPaddleTop: number;
+  private leftScore: number;
+  private rightScore: number;
 
 
   private ballTop: number;
@@ -35,6 +37,7 @@ export class GameComponent implements OnInit {
 
   ngOnInit() {
     this.resetGame();
+    this.resetScores();
   }
 
   private resetGame() {
@@ -46,6 +49,10 @@ export class GameComponent implements OnInit {
     clearTimeout(this.gameInterval);
     this.timer = 0;
     this.disableMouse = true;
+  }
+  private resetScores() {
+    this.rightScore = 0;
+    this.leftScore = 0;
   }
 
   private onMouseMove(event: MouseEvent) {
@@ -103,8 +110,13 @@ export class GameComponent implements OnInit {
       } else {
          this.θ =  6 * this.θ / 7;
       }
-    } else if (this.ballLeft > this.gameWidth - 20 || this.ballLeft < 0 && this.ballLeft < this.gameWidth + 40 && this.ballLeft > -40) {
+    } else if (this.ballLeft > this.gameWidth - 20 || this.ballLeft < 0) {
       clearTimeout(this.gameInterval);
+      if (this.ballLeft < 0) {
+        this.rightScore ++;
+      } else {
+        this.leftScore ++;
+      }
       setTimeout(() => {
         this.resetGame();
         this.decrementTimer(3);

@@ -1,6 +1,6 @@
 <div class="gameContainer" (mousemove)="onMouseMove($event)">
-  <app-paddle [top]="leftPaddleTop" [leftPos]="0"></app-paddle>
-  <app-paddle [top]="rightPaddleTop" [leftPos]="gameWidth - 35"></app-paddle>
+  <app-paddle [top]="leftPaddleTop" [leftPos]="0" [score]="leftScore"></app-paddle>
+  <app-paddle [top]="rightPaddleTop" [leftPos]="gameWidth - 35" [score]="rightScore"></app-paddle>
   <app-ball [top]="ballTop" [left]="ballLeft"></app-ball>
   <div class="timerContainer" *ngIf="timer">
     <app-timer *ngIf="timer" [timer]="timer"></app-timer>

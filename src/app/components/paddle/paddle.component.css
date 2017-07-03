@@ -8,3 +8,14 @@
   position: absolute;
   margin: 0 5px;
 }
+.score {
+  position: absolute;
+  top: 5px;
+  margin: 0 10px;
+  z-index: 0;
+  color: #002c30;
+  background-color: #f5f5dc;
+  padding: 5px;
+  border-radius: 40%;
+  font-weight: bolder;
+}

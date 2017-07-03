@@ -9,6 +9,7 @@ export class PaddleComponent {
 
   @Input() top: number;
   @Input() leftPos: number;
+  @Input() score: number;
 
   constructor() { }
 
