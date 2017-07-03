@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 @Component({
@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
-export class GameComponent {
+export class GameComponent implements OnInit {
   @Input() gameWidth: number;
   @Input() gameHeight: number;
 
@@ -25,7 +25,7 @@ export class GameComponent {
   private θ: number;
   private pi: number;
   private velocity: number;
-  private alreadyInZone: boolean = false;
+  private alreadyInZone = false;
   private timer: number;
   private level: number;
 
@@ -55,8 +55,9 @@ export class GameComponent {
   }
 
   private start(level) {
-    clearInterval(this.gameInterval);
     clearTimeout(this.decrementTimeout);
+    this.velocity = 17;
+    this.θ = (Math.random() * (Math.random() > 0.5 ? -this.pi : this.pi)) / 12 + this.pi / 6;
     this.gameInterval = setInterval(() => {
       this.updateBall();
       this.updateAi();
@@ -103,11 +104,11 @@ export class GameComponent {
          this.θ =  6 * this.θ / 7;
       }
     } else if (this.ballLeft > this.gameWidth - 20 || this.ballLeft < 0 && this.ballLeft < this.gameWidth + 40 && this.ballLeft > -40) {
-      this.velocity = 0;
       clearTimeout(this.gameInterval);
       setTimeout(() => {
         this.resetGame();
-      }, 1000);
+        this.decrementTimer(3);
+      }, 500);
     } else {
       this.alreadyInZone = false;
     }
@@ -115,17 +116,15 @@ export class GameComponent {
   private updateAi() {
     if (this.ballLeft < this.gameWidth * 0.6 && this.velocity < 0) {
       if (this.leftPaddleTop + 60 < this.ballTop + 20) {
-        this.leftPaddleTop += 5;
+        this.leftPaddleTop += 10;
       } else if (this.leftPaddleTop > this.ballTop) {
-        this.leftPaddleTop -= 5;
+        this.leftPaddleTop -= 10;
       }
     }
   }
   private onNewGameClicked(level = 1) {
       this.level = level;
       this.resetGame();
-      this.velocity = 11;
-      this.θ = (Math.random() * (Math.random() > 0.5 ? -this.pi : this.pi)) / 4;
       this.decrementTimer(3);
   }
   private decrementTimer(timer: number) {

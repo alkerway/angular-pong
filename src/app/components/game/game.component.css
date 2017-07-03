@@ -13,9 +13,6 @@
   bottom: 0;
   width: 100%;
 }
-.gameActive {
-  opacity: 0.2;
-}
 button {
   outline: none;
   background-color: #002c30;
