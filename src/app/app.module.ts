@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { PaddleComponent } from './components/paddle/paddle.component';
 import { GameComponent } from './components/game/game.component';
 import { BallComponent } from './components/ball/ball.component';
+import { TimerComponent } from './components/timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { BallComponent } from './components/ball/ball.component';
     HeaderComponent,
     PaddleComponent,
     GameComponent,
-    BallComponent
+    BallComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule

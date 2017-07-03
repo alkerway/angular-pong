@@ -24,6 +24,8 @@ export class GameComponent {
   private pi: number;
   private velocity: number;
   private alreadyInZone: boolean = false;
+  private timer: number;
+  private level: number;
 
   constructor() {
     this.pi = Math.PI;
@@ -31,12 +33,6 @@ export class GameComponent {
 
   ngOnInit() {
     this.resetGame();
-    this.gameStartSubject.subscribe((level) => {
-      this.resetGame();
-      this.velocity = 7;
-      this.θ = (Math.random() * (Math.random() > 0.5 ? -this.pi : this.pi)) / 4;
-      this.start(level);
-    })
   }
 
   private resetGame() {
@@ -102,6 +98,23 @@ export class GameComponent {
       } else if (this.leftPaddleTop > this.ballTop) {
         this.leftPaddleTop -= 5;
       }
+    }
+  }
+  private onNewGameClicked(level = 1) {
+      this.level = level;
+      this.resetGame();
+      this.velocity = 7;
+      this.θ = (Math.random() * (Math.random() > 0.5 ? -this.pi : this.pi)) / 4;
+      this.decrementTimer(3);
+  }
+  private decrementTimer(timer: number) {
+    this.timer = timer;
+    if (timer > 0) {
+      setTimeout(() => {
+        this.decrementTimer(timer - 1);
+      }, 1000);
+    } else {
+      this.start(this.level);
     }
   }
 

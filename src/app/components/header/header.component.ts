@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,13 +6,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  @Output() startClicked: EventEmitter<number> = new EventEmitter<number>();
-
-  private level: number = 1;
   constructor() { }
-
-  private onNewGameClicked() {
-    this.startClicked.emit(this.level);
-  }
 
 }

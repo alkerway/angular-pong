@@ -3,3 +3,32 @@
   height: 100%;
   position: relative;
 }
+.timerContainer {
+  width: 100%;
+  text-align: center;
+}
+.buttonContainer {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+}
+.gameActive {
+  opacity: 0.5;
+}
+button {
+  outline: none;
+  background-color: #002c30;
+  color: #f5f5dc;
+  border: 2px solid #f5f5dc;
+  border-radius: 10%;
+  padding: 2px;
+  margin: 2px;
+  cursor: pointer;
+  transition: all 0.1s linear;
+}
+button:hover {
+  background-color: #f5f5dc;
+  color: #002c30;
+  transition: all 0.1s linear;
+}

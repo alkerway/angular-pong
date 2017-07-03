@@ -1,8 +1,8 @@
-<div id="pongContainer" [style.width]="width + 'px'" [style.height]="height + 'px'">
-  <div id="headerContainer">
-    <app-header (startClicked)="onStartClick($event)"></app-header>
+<div class="pongContainer" [style.width]="width + 'px'" [style.height]="height + 'px'">
+  <div class="headerContainer">
+    <app-header></app-header>
   </div>
   <div class="gameComponentContainer">
-    <app-game [gameWidth]="width" [gameHeight]="height" [gameStartSubject]="gameStartSubject"></app-game>
+    <app-game [gameWidth]="width" [gameHeight]="height"></app-game>
   </div>
 </div>
