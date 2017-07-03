@@ -21,6 +21,7 @@ export class GameComponent {
 
   private gameInterval;
   private decrementTimeout;
+  private disableMouse: boolean;
   private θ: number;
   private pi: number;
   private velocity: number;
@@ -44,15 +45,18 @@ export class GameComponent {
     clearTimeout(this.decrementTimeout);
     clearTimeout(this.gameInterval);
     this.timer = 0;
+    this.disableMouse = true;
   }
 
   private onMouseMove(event: MouseEvent) {
-    this.rightPaddleTop = Math.min(Math.max(event.clientY, 100), 430) - 100;
+    if (!this.disableMouse) {
+      this.rightPaddleTop = Math.min(Math.max(event.clientY, 100), 430) - 100;
+    }
   }
 
   private start(level) {
     clearInterval(this.gameInterval);
-    clearTimeout(this.decrementTimeout)
+    clearTimeout(this.decrementTimeout);
     this.gameInterval = setInterval(() => {
       this.updateBall();
       this.updateAi();
@@ -113,6 +117,7 @@ export class GameComponent {
       this.decrementTimer(3);
   }
   private decrementTimer(timer: number) {
+    this.disableMouse = false;
     this.timer = timer;
     if (this.timer > 0) {
       this.decrementTimeout = setTimeout(() => {
