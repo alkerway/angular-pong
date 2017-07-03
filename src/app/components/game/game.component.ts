@@ -9,14 +9,19 @@ export class GameComponent {
   @Input() gameWidth: number;
   @Input() gameHeight: number;
 
-  private leftPaddleTop: number = 2;
+  private leftPaddleTop: number;
   private rightPaddleTop: number;
+
+  private ballTop: number;
+  private ballLeft: number;
 
   constructor() {
   }
+  ngOnInit() {
+  }
 
   private onMouseMove(event: MouseEvent) {
-    this.rightPaddleTop = Math.min(Math.max(event.clientY, 100), 430) - 160;
+    this.rightPaddleTop = Math.min(Math.max(event.clientY, 100), 430) - 100;
   }
 
 }

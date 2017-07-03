@@ -5,6 +5,6 @@
   border: 2px solid #f5f5dc;
   border-radius: 30%;
   z-index: 1;
-  position: relative;
+  position: absolute;
   margin: 0 5px;
 }
