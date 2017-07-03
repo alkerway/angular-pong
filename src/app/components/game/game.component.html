@@ -1,0 +1,5 @@
+<div class="gameContainer" (mousemove)="onMouseMove($event)">
+  <app-paddle [top]="leftPaddleTop" [leftPos]="0"></app-paddle>
+  <app-paddle [top]="rightPaddleTop" [leftPos]="gameWidth - 35"></app-paddle>
+  <app-ball [top]="ballTop" [left]="ballLeft"></app-ball>
+</div>

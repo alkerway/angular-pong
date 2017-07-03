@@ -1,7 +1,14 @@
 #pongContainer {
   margin: 0 auto;
-  width: 647px;
-  height: 400px;
   background-color: #002c30;
-  border-radius: 30px;
+  z-index: 0;
+}
+#headerContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.gameComponentContainer {
+  height: 100%;
+  width: 100%;
 }

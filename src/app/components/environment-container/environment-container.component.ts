@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./environment-container.component.css']
 })
 export class EnvironmentContainerComponent implements OnInit {
+  private width = 647;
+  private height = 400;
 
   constructor() { }
 
