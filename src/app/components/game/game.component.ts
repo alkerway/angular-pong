@@ -23,6 +23,7 @@ export class GameComponent {
   private θ: number;
   private pi: number;
   private velocity: number;
+  private alreadyInZone: boolean = false;
 
   constructor() {
     this.pi = Math.PI;
@@ -66,24 +67,32 @@ export class GameComponent {
       this.θ = -this.θ;
     } else if (this.ballLeft > this.gameWidth - 50 &&
                this.rightPaddleTop + 60 > this.ballTop &&
-               this.rightPaddleTop <= this.ballTop + 20) {
-      this.velocity = Math.sign(this.velocity) > 0 ? -this.velocity : this.velocity;
+               this.rightPaddleTop <= this.ballTop + 20 &&
+               !this.alreadyInZone) {
+      this.velocity = this.velocity > 0 ? -this.velocity : this.velocity;
       this.θ = -this.θ;
+      this.alreadyInZone = true;
       if (this.rightPaddleTop + 45 <= this.ballTop || this.rightPaddleTop + 15 >= this.ballTop + 20) {
-        this.θ += (this.pi / 3 - this.θ) / 2; // limit to 60 degrees
-        console.log('changed θ PLUS ', this.θ);
+        if (this.θ > 0) {
+          this.θ += (this.pi / 3 - this.θ) / 2;  // limit to 60 degrees
+        } else {
+          this.θ -= (this.pi / 3 - this.θ) / 2;
+        }
       } else {
-         this.θ -= 0;
-         console.log('changed θ MINUS ', this.θ);
+         this.θ =  6 * this.θ / 7;
       }
     } else if (this.ballLeft < 30 &&
                this.leftPaddleTop + 60 >= this.ballTop &&
-               this.leftPaddleTop <= this.ballTop + 20) {
+               this.leftPaddleTop <= this.ballTop + 20 &&
+               !this.alreadyInZone) {
       this.velocity = -this.velocity;
       this.θ = -this.θ;
-    } else if (this.ballLeft > this.gameWidth - 20 || this.ballLeft < 0) {
+      this.alreadyInZone = true;
+    } else if (this.ballLeft > this.gameWidth - 20 || this.ballLeft < 0 && this.ballLeft < this.gameWidth + 40 && this.ballLeft > -40) {
       this.velocity = 0;
       this.resetGame();
+    } else {
+      this.alreadyInZone = false;
     }
   }
   private updateAi() {
