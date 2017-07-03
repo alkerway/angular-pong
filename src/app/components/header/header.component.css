@@ -4,4 +4,8 @@
 }
 .title {
   text-align: center;
+  z-index: 500;
+}
+button {
+  display: inline;
 }
