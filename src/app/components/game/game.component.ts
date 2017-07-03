@@ -17,7 +17,12 @@ export class GameComponent {
 
   constructor() {
   }
+
   ngOnInit() {
+    this.leftPaddleTop = this.gameHeight / 2 - 60;
+    this.rightPaddleTop = this.gameHeight / 2 - 60;
+    this.ballTop = this.gameHeight / 2 - 40;
+    this.ballLeft = 30;
   }
 
   private onMouseMove(event: MouseEvent) {
